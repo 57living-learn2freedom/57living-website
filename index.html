@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>57Living | Premium Room Rentals</title>
+    <!-- 引入图标库 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* --- 1. 全局设置与配色 --- */
+        :root {
+            --primary-color: #D32F2F; 
+            --primary-hover: #b71c1c;
+            --whatsapp-green: #25D366; 
+            --bg-white: #ffffff;
+            --bg-light: #f8f9fa;
+            --text-dark: #1a1a1a;
+            --text-gray: #555;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            color: var(--text-dark);
+            background-color: var(--bg-white);
+            line-height: 1.6;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- 2. 导航栏 --- */
+        header {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 800;
+            color: var(--text-dark);
+            letter-spacing: -0.5px;
+        }
+
+        .logo span { color: var(--primary-color); }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
+        .nav-links a:hover { color: var(--primary-color); }
+
+        .btn-nav {
+            background: var(--primary-color);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .btn-nav:hover { background: var(--primary-hover); transform: translateY(-1px); }
+
+        /* --- 3. Hero 主视觉 --- */
+        .hero {
+            height: 90vh;
+            /* 
+               !!! 注意：这里请把图片改成你自己的文件名 !!!
+               比如改成: background: linear-gradient(...), url('TBA890 Living room.jpeg');
+               确保图片文件和 index.html 在同一个文件夹里 
+            */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images\\TBA890 Living room.jpeg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+        
+        .hero-content h1 span { color: #fff; background: var(--primary-color); padding: 0 15px; border-radius: 5px;}
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+        }
+
+        .btn-hero {
+            background: var(--primary-color);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: 0.3s;
+            display: inline-block;
+            border: 2px solid var(--primary-color);
+        }
+        .btn-hero:hover { background: transparent; border-color: white; }
+
+        /* --- 4. 房间展示区 --- */
+        .rooms { padding: 100px 0; background: var(--bg-white); }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 2.5rem; color: var(--text-dark); margin-bottom: 10px; }
+        .section-header p { color: var(--text-gray); }
+        .section-header .line { width: 60px; height: 4px; background: var(--primary-color); display: block; margin: 15px auto 0; }
+
+        .rooms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .room-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            border: 1px solid #eee;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .room-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+
+        .card-img { height: 250px; width: 100%; overflow: hidden; position: relative; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .room-card:hover .card-img img { transform: scale(1.05); }
+
+        .card-content { padding: 25px; flex: 1; display: flex; flex-direction: column; }
+        .card-content h3 { font-size: 1.4rem; margin-bottom: 5px; color: var(--text-dark); }
+        .card-content .subtitle { font-size: 0.9rem; color: var(--primary-color); font-weight: bold; margin-bottom: 15px; display: block; }
+        .card-content p { color: var(--text-gray); font-size: 0.95rem; margin-bottom: 20px; line-height: 1.5; flex: 1;}
+        
+        .amenities { display: flex; gap: 15px; margin-bottom: 25px; color: #666; font-size: 0.9rem; }
+        .amenities span i { color: var(--primary-color); margin-right: 5px; }
+
+        .btn-card { 
+            text-align: center;
+            background: var(--bg-light); 
+            color: var(--text-dark); 
+            padding: 12px; 
+            border-radius: 5px; 
+            font-weight: bold; 
+            transition: 0.3s; 
+            border: 1px solid #ddd;
+        }
+        .btn-card:hover { background: var(--primary-color); color: white; border-color: var(--primary-color); }
+
+        /* --- 5. 服务卖点 --- */
+        .features { padding: 80px 0; background: var(--bg-light); }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+        .feature-item { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .feature-item i { font-size: 32px; color: var(--primary-color); margin-bottom: 20px; display: block; }
+        .feature-item h4 { font-size: 1.1rem; margin-bottom: 10px; }
+        .feature-item p { color: var(--text-gray); font-size: 0.9rem; }
+
+        /* --- 6. 联系部分 --- */
+        .contact { padding: 100px 0; }
+        .contact-container { display: flex; flex-wrap: wrap; gap: 60px; align-items: flex-start;}
+        
+        /* 左侧：信息 */
+        .contact-info { flex: 1; min-width: 300px; }
+        .contact-info h2 { font-size: 2.2rem; margin-bottom: 15px; }
+        .contact-info p { margin-bottom: 30px; color: var(--text-gray); }
+
+        .info-item { display: flex; align-items: flex-start; margin-bottom: 25px; }
+        .info-item i { font-size: 1.2rem; color: var(--primary-color); margin-right: 15px; margin-top: 5px; }
+        .info-item h5 { font-size: 0.9rem; color: #888; text-transform: uppercase; margin-bottom: 3px; }
+        .info-item span { font-size: 1.1rem; font-weight: 500; }
+
+        /* 右侧：WhatsApp Box */
+        .contact-form {
+            flex: 1; min-width: 300px;
+            background: white; padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-top: 5px solid var(--whatsapp-green);
+            text-align: center;
+        }
+
+        /* Footer */
+        footer { background: #1a1a1a; color: white; padding: 40px 0; text-align: center; margin-top: 50px;}
+        footer p { opacity: 0.5; font-size: 0.9rem; }
+
+        /* 移动端适配 */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .nav-links { display: none; }
+            .contact-container { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">57<span>Living</span></div>
+                <ul class="nav-links">
+                    <li><a href="#rooms">Our Rooms</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#location">Location</a></li>
+                </ul>
+                <a href="#contact" class="btn-nav">Book Viewing</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero 主页头图 -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Premium Room Rentals<br>in <span>City Center</span></h1>
+            <p>Move-in ready rooms in luxury apartments. <br>Fully furnished, all bills included, and zero hassle.</p>
+            <a href="#rooms" class="btn-hero">Find Your Room</a>
+        </div>
+    </section>
+
+    <!-- 房间展示 -->
+    <section id="rooms" class="rooms">
+        <div class="container">
+            <div class="section-header">
+                <h2>Choose Your Space</h2>
+                <p>Comfortable living designed for professionals and students.</p>
+                <span class="line"></span>
+            </div>
+            <div class="rooms-grid">
+                
+                <!-- 房型 1: 中房 -->
+                <div class="room-card">
+                    <div class="card-img">
+                        <!-- 
+                             !!! 图片修改说明 !!!
+                             请把你本地的 MD2A102Q5(2).jpg 放在和 index.html 同一个文件夹里
+                             然后把 src 改成 src="MD2A102Q5(2).jpg"
+                        -->
+                        <img src="images\MD2A102Q5(2).jpg" alt="Medium Room">
+                    </div>
+                    <div class="card-content">
+                        <h3>Medium Room</h3>
+                        <span class="subtitle">Larger Spaces</span>
+                        <p>Enjoy a larger, more comfortable space with a spacious layout, a queen-size bed, and a beautiful city view.</p>
+                        <div class="amenities">
+                            <span><i class="fas fa-shower"></i> Shared Bath</span>
+                            <span><i class="fas fa-wifi"></i> Free utility</span>
+                            <span><i class="fas fa-wind"></i> Air-con</span>
+                        </div>
+                        <a href="#contact" class="btn-card">Check Availability</a>
+                    </div>
+                </div>
+                
+                <!-- 房型 2: 单人房 -->
+                <div class="room-card">
+                    <div class="card-img">
+                        <!-- 
+                             !!! 图片修改说明 !!!
+                             把 src 改成 src="MD2A102S2(1).jpg"
+                        -->
+                        <img src="images/MD2A102S2(1).jpg" alt="Single Room">
+                    </div>
+                    <div class="card-content">
+                        <h3>Single Room</h3>
+                        <span class="subtitle">Value & Comfort</span>
+                        <p>A cozy, fully furnished room perfect for singles. Includes study desk and access to shared premium bathroom.</p>
+                        <div class="amenities">
+                            <span><i class="fas fa-shower"></i> Shared Bath</span>
+                            <span><i class="fas fa-wifi"></i> Free utility</span>
+                            <span><i class="fas fa-wind"></i> Air-con</span>
+                        </div>
+                        <a href="#contact" class="btn-card">Check Availability</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 服务与卖点 -->
+    <section id="services" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>All-Inclusive Living</h2>
+                <p>We handle the details so you can focus on your life.</p>
+            </div>
+            <div class="feature-grid">
+                <div class="feature-item">
+                    <i class="fas fa-bolt"></i>
+                    <h4>Utilities Included</h4>
+                    <p>Rent covers water, electricity, and high-speed internet. No hidden monthly costs.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-broom"></i>
+                    <h4>Weekly Cleaning</h4>
+                    <p>We clean the common areas (kitchen, living room, shared bath) every week.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-couch"></i>
+                    <h4>Fully Furnished</h4>
+                    <p>Just bring your suitcase. Beds, wardrobes, washing machine, and fridge are all provided.</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-tools"></i>
+                    <h4>Maintenance Support</h4>
+                    <p>Something broken? Our team is just a message away to fix it quickly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系我们 (含 WhatsApp) -->
+    <section id="contact" class="contact">
+        <div class="container contact-container">
+            
+            <!-- 左侧：联系方式 -->
+            <div class="contact-info" id="location">
+                <h2>Get in Touch</h2>
+                <p>Rooms are renting fast. Contact us today to schedule a viewing.</p>
+                
+                <div class="info-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h5>Location</h5>
+                        <span>No. 241 - A, Jalan Tuanku Antah<br>70100 Seremban Negeri Sembilan</span>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h5>Email</h5>
+                        <span>57living.co@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧：WhatsApp Box -->
+            <div class="contact-form">
+                
+                <h3 style="color: #1a1a1a; margin-bottom: 10px;">Fast Booking via WhatsApp</h3>
+                <p style="color: #666; font-size: 0.95rem; margin-bottom: 30px;">
+                    Skip the email forms. Click below to send your details directly to our agent via WhatsApp.
+                </p>
+
+                <!-- 模拟表格样子的提示 -->
+                <div style="background: #f1f8f3; border: 1px dashed #25D366; padding: 20px; border-radius: 8px; text-align: left; margin-bottom: 30px; font-family: monospace; color: #333;">
+                    <span style="color: #888;">// Message Preview:</span><br><br>
+                    Hi 57Living, I am interested!<br>
+                    Name: ______<br>
+                    Condo/area: ______<br>
+                    Room: ______<br>
+                    Date: ______
+                </div>
+
+                <!-- 核心按钮 -->
+                <a href="https://wa.me/60122549962?text=Hi%2057Living%2C%20I%20am%20interested%20in%20your%20rooms.%0A%0AName%3A%20%0ACondo%2FArea%3A%20%0ARoom%20Type%3A%20%0APlanned%20Move-in%20Date%3A%20" 
+                target="_blank" 
+                style="display: block; width: 100%; background-color: #25D366; color: white; padding: 18px; border-radius: 5px; font-size: 1.2rem; font-weight: bold; text-decoration: none; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); transition: 0.3s;">
+                <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                </a>
+                
+                <p style="margin-top: 15px; font-size: 0.85rem; color: #999;">
+                    *Link opens WhatsApp automatically
+                </p>
+
+            </div>
+
+        </div>
+    </section>
+
+<!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 57Living Property Management. All Rights Reserved. | <a href="privacy-policy.html" style="color: #999; text-decoration: underline;">Privacy Policy</a></p>
+        </div>
+    </footer>
+
+</body>
+</html>
