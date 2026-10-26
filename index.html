@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1024">
     <title>57Living | Premium Room Rentals</title>
     <!-- 引入图标库 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -18,7 +18,11 @@
             --text-gray: #555;
         }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+            background: #ececec;
+            min-width: 1024px;
+        }
 
         * {
             margin: 0;
@@ -31,6 +35,10 @@
             color: var(--text-dark);
             background-color: var(--bg-white);
             line-height: 1.6;
+            width: 1024px;
+            min-width: 1024px;
+            max-width: 1024px;
+            margin: 0 auto;
         }
 
         a { text-decoration: none; color: inherit; }
@@ -40,21 +48,22 @@
         header {
             background: rgba(255, 255, 255, 0.98);
             box-shadow: 0 2px 15px rgba(0,0,0,0.05);
-            position: fixed;
-            width: 100%;
+            position: sticky;
             top: 0;
+            width: 100%;
             z-index: 1000;
         }
 
         .container {
-            max-width: 1200px;
+            width: 1024px;
+            max-width: 1024px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
         nav {
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
             height: 80px;
         }
@@ -64,13 +73,27 @@
             font-weight: 800;
             color: var(--text-dark);
             letter-spacing: -0.5px;
+            justify-self: start;
         }
 
         .logo span { color: var(--primary-color); }
 
-        .nav-links { display: flex; gap: 30px; }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            justify-self: center;
+        }
         .nav-links a { font-weight: 500; font-size: 0.95rem; transition: 0.3s; }
         .nav-links a:hover { color: var(--primary-color); }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            justify-self: end;
+            gap: 16px;
+        }
+        .nav-login { display: inline; font-weight: 600; font-size: 0.9rem; }
+        .nav-login:hover { color: var(--primary-color); }
 
         .btn-nav {
             background: var(--primary-color);
@@ -91,7 +114,7 @@
                比如改成: background: linear-gradient(...), url('TBA890 Living room.jpeg');
                确保图片文件和 index.html 在同一个文件夹里 
             */
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('image/tba890 living room.jpeg');
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('images\\TBA890 Living room.jpeg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -99,7 +122,6 @@
             justify-content: center;
             text-align: center;
             color: white;
-            margin-top: 80px;
         }
 
         .hero-content h1 {
@@ -226,12 +248,7 @@
         footer { background: #1a1a1a; color: white; padding: 40px 0; text-align: center; margin-top: 50px;}
         footer p { opacity: 0.5; font-size: 0.9rem; }
 
-        /* 移动端适配 */
-        @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.5rem; }
-            .nav-links { display: none; }
-            .contact-container { flex-direction: column; }
-        }
+        /* 固定 1024px 布局，不再收起导航 */
     </style>
 </head>
 <body>
@@ -246,7 +263,10 @@
                     <li><a href="#services">Services</a></li>
                     <li><a href="#location">Location</a></li>
                 </ul>
-                <a href="#contact" class="btn-nav">Book Viewing</a>
+                <div class="nav-actions">
+                    <a href="login.html" class="nav-login">Tenant Login</a>
+                    <a href="#contact" class="btn-nav">Book Viewing</a>
+                </div>
             </nav>
         </div>
     </header>
@@ -278,7 +298,7 @@
                              请把你本地的 MD2A102Q5(2).jpg 放在和 index.html 同一个文件夹里
                              然后把 src 改成 src="MD2A102Q5(2).jpg"
                         -->
-                        <img src="image/md2a102q5(2).jpg" alt="Medium Room">
+                        <img src="images\MD2A102Q5(2).jpg" alt="Medium Room">
                     </div>
                     <div class="card-content">
                         <h3>Medium Room</h3>
@@ -300,7 +320,7 @@
                              !!! 图片修改说明 !!!
                              把 src 改成 src="MD2A102S2(1).jpg"
                         -->
-                        <img src="image/md2a102s2(1).jpg" alt="Single Room">
+                        <img src="images/MD2A102S2(1).jpg" alt="Single Room">
                     </div>
                     <div class="card-content">
                         <h3>Single Room</h3>
@@ -414,7 +434,7 @@
 <!-- Footer -->
     <footer>
         <div class="container">
-            <p>&copy; 2024 57Living Property Management. All Rights Reserved. | <a href="privacy-policy.html" style="color: #999; text-decoration: underline;">Privacy Policy</a></p>
+            <p>&copy; 2024 57Living Property Management. All Rights Reserved. | <a href="login.html" style="color: #999; text-decoration: underline;">Tenant Login</a> | <a href="privacy-policy.html" style="color: #999; text-decoration: underline;">Privacy Policy</a></p>
         </div>
     </footer>
 
