@@ -15,7 +15,13 @@
             --text-gray: #555;
         }
 
-        html { background: #ececec; min-width: 1024px; }
+        html {
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+                url('image/TBA890 Living room.jpeg') center / cover no-repeat fixed;
+            min-width: 1024px;
+            min-height: 100%;
+        }
 
         * {
             margin: 0;
@@ -26,7 +32,7 @@
 
         body {
             color: var(--text-dark);
-            background: var(--bg-light);
+            background: transparent;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
