@@ -20,7 +20,7 @@
 
         html {
             scroll-behavior: smooth;
-            background: #ececec;
+            background: #ffffff;
             min-width: 1024px;
         }
 
@@ -35,10 +35,9 @@
             color: var(--text-dark);
             background-color: var(--bg-white);
             line-height: 1.6;
-            width: 1024px;
+            width: 100%;
             min-width: 1024px;
-            max-width: 1024px;
-            margin: 0 auto;
+            margin: 0;
         }
 
         a { text-decoration: none; color: inherit; }
@@ -248,7 +247,7 @@
         footer { background: #1a1a1a; color: white; padding: 40px 0; text-align: center; margin-top: 50px;}
         footer p { opacity: 0.5; font-size: 0.9rem; }
 
-        /* 固定 1024px 布局，不再收起导航 */
+        /* 页面铺满视口（最小 1024px），内容区仍由 .container 居中 */
     </style>
 </head>
 <body>
